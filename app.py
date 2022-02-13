@@ -2,11 +2,15 @@ import random
 import re
 import string
 
-from flask import Flask, request
+from flask import Flask, request, send_from_directory
 from flask_cors import CORS, cross_origin
 
-app = Flask('impossible')
+app = Flask('impossible',static_folder='./build',static_url_path='')
 cors = CORS(app)
+
+@app.route('/')
+def serveReact():
+    return send_from_directory(app.static_folder, 'index.html')
 
 #route for generating the MBI
 @app.route('/generate/', methods=['GET'])
